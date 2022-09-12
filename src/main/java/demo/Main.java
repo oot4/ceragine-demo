@@ -4,6 +4,7 @@ import ceragine.Game;
 import resource_manager.writable.api.WritableResource;
 import resource_manager.writable.core.GameDataBundle;
 import states.IntroState;
+import states.MenuState;
 
 public final class Main
 {
@@ -15,6 +16,7 @@ public final class Main
     {
         Game.build( new CeragineDemoBundle( ) );
         Game.setInitialState( IntroState.class );
+        Game.attach( MenuState.class );
         Game.launch( );
     }
 
