@@ -6,6 +6,7 @@ import ecs_architecture.standard.GameComponent;
 import ecs_architecture.standard.GameSystem;
 import states.MenuState;
 import utility_library.gameplay.effects.FadeComponent;
+import utility_library.gameplay.gameclock.TimerComponent;
 
 import java.util.Map;
 
@@ -30,12 +31,17 @@ public final class MenuTransitionSystem extends GameSystem
     {
         Map< String, GameComponent > copyRightTags = get( CopyrightLogoEntity.CopyRightLogoTag.class );
         Map< String, GameComponent > fadeEffects = get( FadeComponent.class );
+        Map< String, GameComponent > timers = get( TimerComponent.class );
         copyRightTags.forEach( ( entity , component ) -> {
             if ( component.getName( ).equals( "copyright-logo" ) )
             {
                 if ( ! fadeEffects.containsKey( entity ) )
                 {
-                    change( MenuState.class );
+                    TimerComponent timer = ( TimerComponent ) timers.get( entity );
+                    if ( timer != null && timer.getSecondsLeft( ) <= 0 )
+                    {
+                        change( MenuState.class );
+                    }
                 }
             }
         } );
