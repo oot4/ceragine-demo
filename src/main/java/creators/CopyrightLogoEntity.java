@@ -15,9 +15,7 @@ public final class CopyrightLogoEntity implements ReturningComputable< GameCompo
 
     private static final CopyrightLogoEntity COPYRIGHT_LOGO_ENTITY = new CopyrightLogoEntity( );
 
-    private CopyrightLogoEntity( )
-    {
-    }
+    private CopyrightLogoEntity( ) { }
 
     public static GameComponent[] build( )
     {
@@ -50,10 +48,23 @@ public final class CopyrightLogoEntity implements ReturningComputable< GameCompo
     public GameComponent[] computeAndGet( )
     {
         List< GameComponent > gameComponents = new ArrayList<>( );
+        gameComponents.add( CopyRightLogoTag.COPY_RIGHT_LOGO_TAG );
         gameComponents.add( getTranslationComponent( ) );
         gameComponents.add( getFadeComponent( ) );
         gameComponents.add( getUISpriteComponent( ) );
         return gameComponents.toArray( new GameComponent[ 0 ] );
+    }
+
+    public static class CopyRightLogoTag extends GameComponent
+    {
+
+        private final static CopyRightLogoTag COPY_RIGHT_LOGO_TAG = new CopyRightLogoTag( "copyright-logo" );
+
+        private CopyRightLogoTag( String name )
+        {
+            super( name );
+        }
+
     }
 
 }
