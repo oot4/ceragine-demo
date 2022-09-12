@@ -3,6 +3,7 @@ package demo;
 import ceragine.Game;
 import resource_manager.writable.api.WritableResource;
 import resource_manager.writable.core.GameDataBundle;
+import states.IntroState;
 
 public class Main
 {
@@ -13,6 +14,8 @@ public class Main
     public static void main( String[] args )
     {
         Game.build( new CeragineDemoBundle( ) );
+        Game.setInitialState( IntroState.class );
+        Game.launch( );
     }
 
 }
