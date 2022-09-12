@@ -13,7 +13,7 @@
     "antiAliasing": false,
     "colorInterpolation": false,
     "width": 384,
-    "baseRenderScale": 3.0,
+    "baseRenderScale": 1.0,
     "height": 432
   },
   "game information": {
