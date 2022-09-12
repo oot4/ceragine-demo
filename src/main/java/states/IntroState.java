@@ -1,5 +1,7 @@
 package states;
 
+import ceragine.Game;
+import creators.CopyrightLogoEntity;
 import state_machine.api.StateChanger;
 import state_machine.standard.GameState;
 
@@ -14,7 +16,8 @@ public class IntroState extends GameState
     @Override
     protected void internalInitialize( )
     {
-
+        add( CopyrightLogoEntity.build( ) );
+        Game.centerViewportAt( 0   , 0 );
     }
 
     @Override
