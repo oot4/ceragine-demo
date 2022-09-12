@@ -5,7 +5,7 @@ import resource_manager.writable.api.WritableResource;
 import resource_manager.writable.core.GameDataBundle;
 import states.IntroState;
 
-public class Main
+public final class Main
 {
 
     @WritableResource( filename = "ceraginedemobundle" )
