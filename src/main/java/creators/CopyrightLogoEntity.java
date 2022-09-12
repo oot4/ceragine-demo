@@ -3,6 +3,7 @@ package creators;
 import ecs_architecture.standard.GameComponent;
 import loaders.TileCompositionLoader;
 import utility_library.algorithms.api.ReturningComputable;
+import utility_library.gameplay.effects.FadeComponent;
 import utility_library.gameplay.kinetics.TranslationComponent;
 import utility_library.gameplay.rendering.core.UserInterfaceSpriteComponent;
 
@@ -25,7 +26,16 @@ public final class CopyrightLogoEntity implements ReturningComputable< GameCompo
 
     private TranslationComponent getTranslationComponent( )
     {
-        return TranslationComponent.from( 0 , 0 );
+        TranslationComponent translationComponent = TranslationComponent.from( "copyright-logo" );
+        translationComponent.setLocation( 0 , 0 );
+        return translationComponent;
+    }
+
+    private FadeComponent getFadeComponent( )
+    {
+        FadeComponent fadeComponent = FadeComponent.from( 0 , 255 , false , false );
+        fadeComponent.setAllTimers( 180 , 60 , 240 , 60 );
+        return fadeComponent;
     }
 
     private UserInterfaceSpriteComponent getUISpriteComponent( )
@@ -37,11 +47,11 @@ public final class CopyrightLogoEntity implements ReturningComputable< GameCompo
     }
 
     @Override
-
     public GameComponent[] computeAndGet( )
     {
         List< GameComponent > gameComponents = new ArrayList<>( );
         gameComponents.add( getTranslationComponent( ) );
+        gameComponents.add( getFadeComponent( ) );
         gameComponents.add( getUISpriteComponent( ) );
         return gameComponents.toArray( new GameComponent[ 0 ] );
     }
