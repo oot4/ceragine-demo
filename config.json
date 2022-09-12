@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "client information": {
+    "fpsModifier": 30.0
+  },
+  "debug information": {
+    "debugRate": 240,
+    "debugMode": true
+  },
+  "graphics information": {
+    "fullscreen": false,
+    "resolutionScaling": false,
+    "antiAliasing": false,
+    "colorInterpolation": false,
+    "width": 128,
+    "baseRenderScale": 1.0,
+    "height": 144
+  },
+  "game information": {
+    "organization": "Viper Sourcing",
+    "name": "Ceragine Demo",
+    "subtitle": "A demo game created with Ceragine",
+    "description": "Ceragine is a game engine that provides an entity-component-system framework to make building a game simpler",
+    "version": "1.0.0",
+    "website": "https://github.com/oot4/viper-sourcing-ceragine/releases/tag/cerastes-v1.0.0",
+    "developers": [
+      "Ogesoka Tasie"
+    ]
+  }
+}
