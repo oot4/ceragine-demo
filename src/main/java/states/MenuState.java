@@ -4,6 +4,7 @@ import creators.MenuFloorEntity;
 import creators.MenuTitleEntity;
 import state_machine.api.StateChanger;
 import state_machine.standard.GameState;
+import systems.MenuOptionSystem;
 
 public class MenuState extends GameState
 {
@@ -18,6 +19,7 @@ public class MenuState extends GameState
     {
         add( MenuFloorEntity.build( ) );
         add( MenuTitleEntity.build( ) );
+        add( new MenuOptionSystem( ) );
     }
 
     @Override
