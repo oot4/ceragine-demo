@@ -1,4 +1,4 @@
-package viper.sourcing;
+package demo;
 
 import ceragine.Game;
 import resource_manager.writable.api.WritableResource;
