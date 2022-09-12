@@ -1,7 +1,7 @@
 package states;
 
-import game_debugger.Alert;
-import game_debugger.GameDebugger;
+import creators.MenuFloorEntity;
+import creators.MenuTitleEntity;
 import state_machine.api.StateChanger;
 import state_machine.standard.GameState;
 
@@ -16,7 +16,8 @@ public class MenuState extends GameState
     @Override
     protected void internalInitialize( )
     {
-        GameDebugger.log( Alert.INFO , "Menu" );
+        add( MenuFloorEntity.build( ) );
+        add( MenuTitleEntity.build( ) );
     }
 
     @Override
