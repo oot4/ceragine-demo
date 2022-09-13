@@ -1,13 +1,21 @@
 package game.systems;
 
+import ceragine.Game;
 import ecs_architecture.standard.GameSystem;
+import game.components.OptionTag;
 import game.creators.MenuTitleBGEntity;
 import game.creators.MenuTitleEntity;
 import utility_library.gameplay.kinetics.TranslationComponent;
 import utility_library.gameplay.text.TextComponent;
 
+import java.awt.event.KeyEvent;
+
 public class MenuOptionSystem extends GameSystem
 {
+
+    private static final String START = "START";
+
+    private static final String QUIT = "QUIT";
 
     private void addTile( int x , int y )
     {
@@ -36,14 +44,20 @@ public class MenuOptionSystem extends GameSystem
     {
         addBgTiles( );
         add( MenuTitleEntity.build( ) );
-        add( TextComponent.from( "START" , "font" , 1 ) , TranslationComponent.from( -4 , 0 ) );
-        add( TextComponent.from( "QUIT" , "font" , 1 ) , TranslationComponent.from( 0 , 12 ) );
+        add( new OptionTag( START ) , TextComponent.from( START , "font" , 1 ) , TranslationComponent.from( - 4 , 0 ) );
+        add( new OptionTag( QUIT ) , TextComponent.from( QUIT , "font" , 1 ) , TranslationComponent.from( 0 , 12 ) );
     }
 
     @Override
     protected void internalTerminate( ) { }
 
+    private void handleInput( )
+    {
+    }
+
     @Override
-    protected void internalPerform( ) { }
+    protected void internalPerform( )
+    {
+    }
 
 }
