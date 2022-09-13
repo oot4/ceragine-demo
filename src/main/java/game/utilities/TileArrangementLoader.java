@@ -1,4 +1,4 @@
-package loaders;
+package game.utilities;
 
 import caching.core.InMemoryCache;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,31 +11,29 @@ import utility_library.algorithms.api.ReturningParameterizedComputable;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-public final class TileCompositionLoader implements ReturningParameterizedComputable< String, int[] >
+public class TileArrangementLoader implements ReturningParameterizedComputable< String, int[] >
 {
 
     private static final String DIRECTORY = "gfx/compositions/";
 
-    private final InMemoryCache< String, int[] > cache = InMemoryCache.of( 32 );
+    private static final InMemoryCache< String, int[] > CACHE = InMemoryCache.of( 32 );
 
-    private static final TileCompositionLoader TILE_COMPOSITION_LOADER = new TileCompositionLoader( );
+    private static final TileArrangementLoader TILE_ARRANGEMENT_LOADER = new TileArrangementLoader( );
 
-    private TileCompositionLoader( )
-    {
-    }
+    private TileArrangementLoader( ) { }
 
     public static int[] load( String filename )
     {
-        if ( TILE_COMPOSITION_LOADER.cache.contains( filename ) )
+        if ( CACHE.contains( filename ) )
         {
-            Optional< int[] > optional = TILE_COMPOSITION_LOADER.cache.get( filename );
+            Optional< int[] > optional = CACHE.get( filename );
             if ( optional.isPresent( ) )
             {
                 return optional.get( );
             }
         }
-        int[] tiles = TILE_COMPOSITION_LOADER.computeAndGet( DIRECTORY + filename );
-        TILE_COMPOSITION_LOADER.cache.put( filename , tiles );
+        int[] tiles = TILE_ARRANGEMENT_LOADER.computeAndGet( DIRECTORY + filename );
+        CACHE.put( filename , tiles );
         return tiles;
     }
 
