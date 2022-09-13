@@ -5,7 +5,7 @@
   },
   "debug information": {
     "debugRate": 240,
-    "debugMode": true
+    "debugMode": false
   },
   "graphics information": {
     "fullscreen": false,
@@ -13,7 +13,7 @@
     "antiAliasing": false,
     "colorInterpolation": false,
     "width": 384,
-    "baseRenderScale": 1.0,
+    "baseRenderScale": 2.0,
     "height": 432
   },
   "game information": {
