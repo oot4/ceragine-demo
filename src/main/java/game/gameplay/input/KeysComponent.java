@@ -1,4 +1,4 @@
-package game.components;
+package game.gameplay.input;
 
 import ecs_architecture.standard.GameComponent;
 
@@ -30,7 +30,7 @@ public class KeysComponent extends GameComponent
 
     private final boolean[] prevKeyState = new boolean[ NUM_KEYS ];
 
-    public void keySet( int i , boolean b )
+    void setKey( int i , boolean b )
     {
         if ( i == KeyEvent.VK_UP ) { keyState[ UP ] = b; }
         else if ( i == KeyEvent.VK_LEFT ) { keyState[ LEFT ] = b; }
@@ -42,7 +42,7 @@ public class KeysComponent extends GameComponent
         else if ( i == KeyEvent.VK_F1 ) { keyState[ F1 ] = b; }
     }
 
-    public void update( )
+    void update( )
     {
         System.arraycopy( keyState , 0 , prevKeyState , 0 , NUM_KEYS );
     }

@@ -1,14 +1,10 @@
-package game.systems;
+package game.gameplay.menu;
 
-import ceragine.Game;
 import ecs_architecture.standard.GameSystem;
-import game.components.OptionTag;
 import game.creators.MenuTitleBGEntity;
 import game.creators.MenuTitleEntity;
 import utility_library.gameplay.kinetics.TranslationComponent;
 import utility_library.gameplay.text.TextComponent;
-
-import java.awt.event.KeyEvent;
 
 public class MenuOptionSystem extends GameSystem
 {

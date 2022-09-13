@@ -1,4 +1,4 @@
-package game.systems;
+package game.gameplay.splashscreen;
 
 import ceragine.Game;
 import ecs_architecture.standard.GameSystem;
@@ -8,7 +8,7 @@ import game.states.MenuState;
 public class SplashScreenSystem extends GameSystem
 {
 
-    private static final int MILLISECONDS = 0;
+    private static final int MILLISECONDS = 15000;
 
     @Override
     protected void internalInitialize( )

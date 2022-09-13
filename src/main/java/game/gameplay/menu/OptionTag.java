@@ -1,4 +1,4 @@
-package game.components;
+package game.gameplay.menu;
 
 import ecs_architecture.standard.GameComponent;
 

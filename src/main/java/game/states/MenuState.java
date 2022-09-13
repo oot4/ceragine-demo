@@ -1,6 +1,6 @@
 package game.states;
 
-import game.systems.MenuOptionSystem;
+import game.gameplay.menu.MenuOptionSystem;
 import state_machine.api.StateChanger;
 import state_machine.standard.GameState;
 

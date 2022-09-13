@@ -1,6 +1,6 @@
 package game.states;
 
-import game.systems.SplashScreenSystem;
+import game.gameplay.splashscreen.SplashScreenSystem;
 import state_machine.api.StateChanger;
 import state_machine.standard.GameState;
 
