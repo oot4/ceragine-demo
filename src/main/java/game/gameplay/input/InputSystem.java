@@ -5,16 +5,21 @@ import ecs_architecture.standard.GameSystem;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 public class InputSystem extends GameSystem
 {
+
+    public static final String STANDARD_KEYS = "standard-keys";
+
+    private static final KeyComponent KEYS = new KeyComponent( STANDARD_KEYS );
 
     private final InputSystemAdapter adapter = new InputSystemAdapter( );
 
     @Override
     protected void internalInitialize( )
     {
-        add( adapter.keys );
+        add( KEYS );
         Game.attach( adapter );
     }
 
@@ -22,23 +27,25 @@ public class InputSystem extends GameSystem
     protected void internalTerminate( ) { Game.detach( adapter ); }
 
     @Override
-    protected void internalPerform( ) { adapter.keys.update( ); }
+    protected void internalPerform( ) { }
 
     private static class InputSystemAdapter extends KeyAdapter
     {
 
-        private final KeysComponent keys = new KeysComponent( );
-
         @Override
         public void keyPressed( KeyEvent key )
         {
-            keys.setKey( key.getKeyCode( ) , true );
+            KEYS.setKeyStates( key.getKeyCode( ) , true );
+            System.out.println( Arrays.toString( KEYS.currentKeyState ) );
+            System.out.println( Arrays.toString( KEYS.previousKeyState ) );
         }
 
         @Override
         public void keyReleased( KeyEvent key )
         {
-            keys.setKey( key.getKeyCode( ) , false );
+            KEYS.setKeyStates( key.getKeyCode( ) , false );
+            System.out.println( Arrays.toString( KEYS.currentKeyState ) );
+            System.out.println( Arrays.toString( KEYS.previousKeyState ) );
         }
 
     }
