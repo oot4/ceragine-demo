@@ -30,6 +30,8 @@ public class KeysComponent extends GameComponent
 
     private final boolean[] prevKeyState = new boolean[ NUM_KEYS ];
 
+    public KeysComponent( String name ) { super( name ); }
+
     void setKey( int i , boolean b )
     {
         if ( i == KeyEvent.VK_UP ) { keyState[ UP ] = b; }
