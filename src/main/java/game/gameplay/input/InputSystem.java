@@ -5,7 +5,6 @@ import ecs_architecture.standard.GameSystem;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
 
 public class InputSystem extends GameSystem
 {
@@ -36,16 +35,12 @@ public class InputSystem extends GameSystem
         public void keyPressed( KeyEvent key )
         {
             KEYS.setKeyStates( key.getKeyCode( ) , true );
-            System.out.println( Arrays.toString( KEYS.currentKeyState ) );
-            System.out.println( Arrays.toString( KEYS.previousKeyState ) );
         }
 
         @Override
         public void keyReleased( KeyEvent key )
         {
             KEYS.setKeyStates( key.getKeyCode( ) , false );
-            System.out.println( Arrays.toString( KEYS.currentKeyState ) );
-            System.out.println( Arrays.toString( KEYS.previousKeyState ) );
         }
 
     }

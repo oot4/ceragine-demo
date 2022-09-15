@@ -1,14 +1,14 @@
 package game.gameplay.menu;
 
+import ceragine.Game;
 import ecs_architecture.standard.GameComponent;
 import ecs_architecture.standard.GameSystem;
 import game.creators.MenuTitleBGEntity;
 import game.creators.MenuTitleEntity;
 import game.gameplay.input.InputSystem;
 import game.gameplay.input.KeyComponent;
-import utility_library.gameplay.effects.FadeComponent;
+import game.states.PlayState;
 import utility_library.gameplay.kinetics.TranslationComponent;
-import utility_library.gameplay.rendering.api.SpriteContainer;
 import utility_library.gameplay.rendering.core.UserInterfaceSpriteComponent;
 import utility_library.gameplay.text.TextComponent;
 
@@ -64,7 +64,6 @@ public class MenuOptionSystem extends GameSystem
         if ( keys.isPressed( KeyComponent.UP ) && currentOption > 0 )
         {
             currentOption--;
-            System.out.println( currentOption );
         }
     }
 
@@ -73,7 +72,21 @@ public class MenuOptionSystem extends GameSystem
         if ( keys.isPressed( KeyComponent.DOWN ) && currentOption < OPTION_SIZE - 1 )
         {
             currentOption++;
-            System.out.println( currentOption );
+        }
+    }
+
+    private void handleEnterInput( KeyComponent keys )
+    {
+        if ( keys.isPressed( KeyComponent.ENTER ) )
+        {
+            if ( currentOption == 0 )
+            {
+                change( PlayState.class );
+            }
+            if ( currentOption == 1 )
+            {
+                Game.exit( );
+            }
         }
     }
 
@@ -85,6 +98,7 @@ public class MenuOptionSystem extends GameSystem
             {
                 handleDownInput( ( KeyComponent ) component );
                 handleUpInput( ( KeyComponent ) component );
+                handleEnterInput( ( KeyComponent ) component );
             }
         } );
     }
@@ -92,12 +106,39 @@ public class MenuOptionSystem extends GameSystem
     private void handleOptions( )
     {
         Map< String, GameComponent > options = get( OptionTag.class );
-        Map< String, GameComponent > fadeEffects = get( FadeComponent.class );
         Map< String, GameComponent > uiSprites = get( UserInterfaceSpriteComponent.class );
         options.forEach( ( entity , component ) -> {
-
+            if ( component.getName( ).equalsIgnoreCase( START ) )
+            {
+                if ( uiSprites.containsKey( entity ) )
+                {
+                    UserInterfaceSpriteComponent uiSprite = ( UserInterfaceSpriteComponent ) uiSprites.get( entity );
+                    if ( currentOption == 0 && uiSprite.sprite( ).alpha( ) < 255 )
+                    {
+                        uiSprite.sprite( ).setAlpha( 255 );
+                    }
+                    if ( currentOption == 1 && uiSprite.sprite( ).alpha( ) > 127 )
+                    {
+                        uiSprite.sprite( ).setAlpha( 127 );
+                    }
+                }
+            }
+            else if ( component.getName( ).equalsIgnoreCase( QUIT ) )
+            {
+                if ( uiSprites.containsKey( entity ) )
+                {
+                    UserInterfaceSpriteComponent uiSprite = ( UserInterfaceSpriteComponent ) uiSprites.get( entity );
+                    if ( currentOption == 0 && uiSprite.sprite( ).alpha( ) > 127 )
+                    {
+                        uiSprite.sprite( ).setAlpha( 127 );
+                    }
+                    if ( currentOption == 1 && uiSprite.sprite( ).alpha( ) < 255 )
+                    {
+                        uiSprite.sprite( ).setAlpha( 255 );
+                    }
+                }
+            }
         } );
-
     }
 
 
