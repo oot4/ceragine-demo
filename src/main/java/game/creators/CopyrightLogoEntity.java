@@ -1,7 +1,7 @@
 package game.creators;
 
 import ecs_architecture.standard.GameComponent;
-import game.components.CopyrightLogoTag;
+import game.components.CopyrightLogoComponent;
 import game.utilities.TileArrangementLoader;
 import utility_library.algorithms.api.ReturningComputable;
 import utility_library.gameplay.effects.FadeComponent;
@@ -72,7 +72,7 @@ public class CopyrightLogoEntity implements ReturningComputable< GameComponent[]
     public GameComponent[] computeAndGet( )
     {
         List< GameComponent > components = new ArrayList<>( );
-        components.add( new CopyrightLogoTag( NAME ) );
+        components.add( new CopyrightLogoComponent( NAME ) );
         components.add( getTranslationComponent( ) );
         components.add( getUISpriteComponent( ) );
         components.add( getFadeComponent( ) );

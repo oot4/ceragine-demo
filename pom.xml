@@ -13,6 +13,11 @@
             <artifactId>viper-sourcing-ceragine</artifactId>
             <version>0.4.6-alpha</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.13.4</version>
+        </dependency>
     </dependencies>
 
     <properties>
