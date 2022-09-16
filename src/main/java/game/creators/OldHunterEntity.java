@@ -48,15 +48,16 @@ public class OldHunterEntity extends ComponentGroup
 
     public static final String BOAT_RIGHT = "boat-right";
 
-    private int x = 0;
-
-    private int y = 0;
-
     private OldHunterEntity( ) { }
 
     public static GameComponent[] build( ) { return OLD_HUNTER_ENTITY.computeAndGet( ); }
 
-    private TranslationComponent getTranslationComponent( ) { return TranslationComponent.from( x , y ); }
+    private TranslationComponent getTranslationComponent( )
+    {
+        int x = 0;
+        int y = 0;
+        return TranslationComponent.from( x , y );
+    }
 
     private CharacterSpriteComponent getCharacterSpriteComponent( )
     {
@@ -157,7 +158,7 @@ public class OldHunterEntity extends ComponentGroup
         animationComponent.addAnimation( BOAT_BACKWARD , boatBackward );
         animationComponent.addAnimation( BOAT_LEFT , boatLeft );
         animationComponent.addAnimation( BOAT_RIGHT , boatRight );
-        animationComponent.setCurrentAnimation( STANDING_FORWARD);
+        animationComponent.setCurrentAnimation( STANDING_FORWARD );
         animationComponent.setAsLoopedAnimation( true );
         animationComponent.setInterval( 9 );
         return animationComponent;
