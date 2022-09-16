@@ -2,15 +2,13 @@ package game.creators;
 
 import ecs_architecture.standard.GameComponent;
 import game.utilities.TileArrangementLoader;
-import utility_library.algorithms.api.ReturningComputable;
 import utility_library.gameplay.kinetics.TranslationComponent;
 import utility_library.gameplay.rendering.core.FloorSpriteComponent;
-import utility_library.gameplay.rendering.core.UserInterfaceSpriteComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuTitleBGEntity implements ReturningComputable< GameComponent[] >
+public class MenuTitleBGEntity extends ComponentGroup
 {
 
     private static final MenuTitleBGEntity MENU_TITLE_ENTITY = new MenuTitleBGEntity( );

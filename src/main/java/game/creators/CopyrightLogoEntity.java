@@ -3,7 +3,6 @@ package game.creators;
 import ecs_architecture.standard.GameComponent;
 import game.components.CopyrightLogoComponent;
 import game.utilities.TileArrangementLoader;
-import utility_library.algorithms.api.ReturningComputable;
 import utility_library.gameplay.effects.FadeComponent;
 import utility_library.gameplay.kinetics.TranslationComponent;
 import utility_library.gameplay.rendering.core.UserInterfaceSpriteComponent;
@@ -11,7 +10,7 @@ import utility_library.gameplay.rendering.core.UserInterfaceSpriteComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CopyrightLogoEntity implements ReturningComputable< GameComponent[] >
+public class CopyrightLogoEntity extends ComponentGroup
 {
 
     private static final int X = 0;

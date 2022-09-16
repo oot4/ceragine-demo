@@ -16,7 +16,9 @@ public class TileArrangementLoader implements ReturningParameterizedComputable< 
 
     private static final String DIRECTORY = "gfx/compositions/";
 
-    private static final InMemoryCache< String, int[] > CACHE = InMemoryCache.of( 32 );
+    private static final InMemoryCache< String, int[] > LIST_CACHE = InMemoryCache.of( 32 );
+
+    private static final InMemoryCache< String, int[][] > MAP_CACHE = InMemoryCache.of( 32 );
 
     private static final TileArrangementLoader TILE_ARRANGEMENT_LOADER = new TileArrangementLoader( );
 
@@ -24,17 +26,46 @@ public class TileArrangementLoader implements ReturningParameterizedComputable< 
 
     public static int[] load( String filename )
     {
-        if ( CACHE.contains( filename ) )
+        if ( LIST_CACHE.contains( filename ) )
         {
-            Optional< int[] > optional = CACHE.get( filename );
+            Optional< int[] > optional = LIST_CACHE.get( filename );
             if ( optional.isPresent( ) )
             {
                 return optional.get( );
             }
         }
         int[] tiles = TILE_ARRANGEMENT_LOADER.computeAndGet( DIRECTORY + filename );
-        CACHE.put( filename , tiles );
+        LIST_CACHE.put( filename , tiles );
         return tiles;
+    }
+
+    public static int[][] loadMap( String filename )
+    {
+        if ( LIST_CACHE.contains( filename ) )
+        {
+            Optional< int[][] > optional = MAP_CACHE.get( filename );
+            if ( optional.isPresent( ) )
+            {
+                return optional.get( );
+            }
+        }
+        int[][] tiles = TILE_ARRANGEMENT_LOADER.computeAndGetMap( DIRECTORY + filename );
+        MAP_CACHE.put( filename , tiles );
+        return tiles;
+    }
+
+    public int[][] computeAndGetMap( String filename )
+    {
+        String data = ResourceIO.read( filename , StandardCharsets.UTF_8 );
+        try
+        {
+            return new ObjectMapper( ).readValue( data , int[][].class );
+        }
+        catch ( JsonProcessingException e )
+        {
+            GameDebugger.log( Alert.DIRE , "Failed to read tile composition: " + data , e );
+        }
+        return new int[ 0 ][ 0 ];
     }
 
     @Override

@@ -2,21 +2,20 @@ package game.creators;
 
 import ecs_architecture.standard.GameComponent;
 import game.utilities.TileArrangementLoader;
-import utility_library.algorithms.api.ReturningComputable;
 import utility_library.gameplay.kinetics.TranslationComponent;
 import utility_library.gameplay.rendering.core.UserInterfaceSpriteComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuTitleEntity implements ReturningComputable< GameComponent[] >
+public class MenuTitleEntity extends ComponentGroup
 {
 
     private static final MenuTitleEntity MENU_TITLE_ENTITY = new MenuTitleEntity( );
 
-    private static final int X = -4;
+    private static final int X = - 4;
 
-    private static final int Y = -72;
+    private static final int Y = - 72;
 
     private static final String NAME = "title";
 
