@@ -174,9 +174,4 @@ public class OldHunterEntity extends ComponentGroup
         return components.toArray( new GameComponent[ 0 ] );
     }
 
-    public static void main( String[] args )
-    {
-        OLD_HUNTER_ENTITY.computeAndGet( );
-    }
-
 }
