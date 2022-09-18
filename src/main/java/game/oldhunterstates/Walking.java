@@ -1,5 +1,6 @@
 package game.oldhunterstates;
 
+import ceragine.Game;
 import ecs_architecture.standard.GameComponent;
 import game.components.DirectionComponent;
 import game.creators.OldHunterEntity;
@@ -50,21 +51,25 @@ public class Walking implements EntityState
         {
             translationComponent.moveLeft( );
             directionComponent.setWest( );
+            Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
         }
         if ( keyComponent.isDown( KeyComponent.RIGHT ) )
         {
             translationComponent.moveRight( );
             directionComponent.setEast( );
+            Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
         }
         if ( keyComponent.isDown( KeyComponent.UP ) )
         {
             translationComponent.moveUp( );
             directionComponent.setNorth( );
+            Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
         }
         if ( keyComponent.isDown( KeyComponent.DOWN ) )
         {
             translationComponent.moveDown( );
             directionComponent.setSouth( );
+            Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
         }
         if ( ! keyComponent.isDown( KeyComponent.LEFT ) && ! keyComponent.isDown( KeyComponent.RIGHT ) && ! keyComponent.isDown( KeyComponent.UP ) && ! keyComponent.isDown( KeyComponent.DOWN ) )
         {
