@@ -1,6 +1,9 @@
 package game.creators;
 
 import ecs_architecture.standard.GameComponent;
+import game.components.PlayerComponent;
+import game.gameplay.entitystate.EntityState;
+import game.gameplay.entitystate.StateComponent;
 import game.utilities.TileArrangementLoader;
 import utility_library.gameplay.animation.AnimationComponent;
 import utility_library.gameplay.kinetics.TranslationComponent;
@@ -9,14 +12,16 @@ import utility_library.structures.Animation;
 import utility_library.structures.Sprite;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OldHunterEntity extends ComponentGroup
 {
 
     private static final OldHunterEntity OLD_HUNTER_ENTITY = new OldHunterEntity( );
 
-    private static final String NAME = "old-hunter";
+    public static final String NAME = "old-hunter";
 
     private static final String EXTENSION = ".json";
 
@@ -52,11 +57,22 @@ public class OldHunterEntity extends ComponentGroup
 
     public static GameComponent[] build( ) { return OLD_HUNTER_ENTITY.computeAndGet( ); }
 
+    private PlayerComponent getPlayerComponent( )
+    {
+        return new PlayerComponent( NAME );
+    }
+
     private TranslationComponent getTranslationComponent( )
     {
         int x = 0;
         int y = 0;
-        return TranslationComponent.from( x , y );
+        return TranslationComponent.from( x , y , 25.0D , - 25.0D );
+    }
+
+    private StateComponent getStateComponent( )
+    {
+        Map< String, EntityState > entityStateMap = new HashMap<>( );
+        return StateComponent.from( entityStateMap );
     }
 
     private CharacterSpriteComponent getCharacterSpriteComponent( )
@@ -168,7 +184,9 @@ public class OldHunterEntity extends ComponentGroup
     public GameComponent[] computeAndGet( )
     {
         List< GameComponent > components = new ArrayList<>( );
+        components.add( getPlayerComponent( ) );
         components.add( getTranslationComponent( ) );
+        components.add( getStateComponent( ) );
         components.add( getCharacterSpriteComponent( ) );
         components.add( getAnimationComponent( ) );
         return components.toArray( new GameComponent[ 0 ] );
