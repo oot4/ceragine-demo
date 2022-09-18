@@ -1,9 +1,12 @@
 package game.creators;
 
 import ecs_architecture.standard.GameComponent;
+import game.components.DirectionComponent;
 import game.components.PlayerComponent;
 import game.gameplay.entitystate.EntityState;
 import game.gameplay.entitystate.StateComponent;
+import game.oldhunterstates.Standing;
+import game.oldhunterstates.Walking;
 import game.utilities.TileArrangementLoader;
 import utility_library.gameplay.animation.AnimationComponent;
 import utility_library.gameplay.kinetics.TranslationComponent;
@@ -53,6 +56,10 @@ public class OldHunterEntity extends ComponentGroup
 
     public static final String BOAT_RIGHT = "boat-right";
 
+    public static final String STANDING = "standing";
+
+    public static final String WALKING = "walking";
+
     private OldHunterEntity( ) { }
 
     public static GameComponent[] build( ) { return OLD_HUNTER_ENTITY.computeAndGet( ); }
@@ -66,13 +73,22 @@ public class OldHunterEntity extends ComponentGroup
     {
         int x = 0;
         int y = 0;
-        return TranslationComponent.from( x , y , 25.0D , - 25.0D );
+        return TranslationComponent.from( x , y , 1.0D , - 1.0D );
+    }
+
+    private DirectionComponent getDirectionComponent( )
+    {
+        return new DirectionComponent( DirectionComponent.Direction.SOUTH );
     }
 
     private StateComponent getStateComponent( )
     {
         Map< String, EntityState > entityStateMap = new HashMap<>( );
-        return StateComponent.from( entityStateMap );
+        entityStateMap.put( STANDING , new Standing( ) );
+        entityStateMap.put( WALKING , new Walking( ) );
+        StateComponent stateComponent = StateComponent.from( entityStateMap );
+        stateComponent.setCurrentState( STANDING );
+        return stateComponent;
     }
 
     private CharacterSpriteComponent getCharacterSpriteComponent( )
@@ -186,6 +202,7 @@ public class OldHunterEntity extends ComponentGroup
         List< GameComponent > components = new ArrayList<>( );
         components.add( getPlayerComponent( ) );
         components.add( getTranslationComponent( ) );
+        components.add( getDirectionComponent( ) );
         components.add( getStateComponent( ) );
         components.add( getCharacterSpriteComponent( ) );
         components.add( getAnimationComponent( ) );

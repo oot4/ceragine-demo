@@ -53,8 +53,8 @@ public class PlayerSystem extends GameSystem
                 StateComponent stateComponent = ( StateComponent ) get( StateComponent.class ).get( entity );
                 if ( stateComponent != null && stateComponent.getCurrentState( ) != null && parameter.keyComponent != null )
                 {
-                    stateComponent.getCurrentState( ).handleInput( entityComponentMap , parameter.keyComponent );
-                    stateComponent.getCurrentState( ).update( entityComponentMap );
+                    stateComponent.getCurrentState( ).onEnter( entityComponentMap );
+                    stateComponent.getCurrentState( ).updateState( entityComponentMap , parameter.keyComponent );
                 }
             }
         } );

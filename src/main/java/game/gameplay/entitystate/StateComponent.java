@@ -34,7 +34,11 @@ public class StateComponent extends GameComponent
     {
         if ( stateMap.containsKey( stateName ) )
         {
-            this.currentState = stateMap.get( stateName );
+            EntityState state = stateMap.get( stateName );
+            if ( state != currentState )
+            {
+                this.currentState = state;
+            }
         }
     }
 

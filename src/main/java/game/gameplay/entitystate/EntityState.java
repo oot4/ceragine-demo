@@ -8,8 +8,8 @@ import java.util.Map;
 public interface EntityState
 {
 
-    void handleInput( Map< Class< ? extends GameComponent >, GameComponent > entityComponentMap , KeyComponent keyComponent );
+    void onEnter( Map< Class< ? extends GameComponent >, GameComponent > entityComponentMap );
 
-    void update( Map< Class< ? extends GameComponent >, GameComponent > entityComponentMap );
+    void updateState( Map< Class< ? extends GameComponent >, GameComponent > entityComponentMap , KeyComponent keyComponent );
 
 }
