@@ -15,7 +15,7 @@ public class MenuTitleEntity extends ComponentGroup
 
     private static final int X = - 4;
 
-    private static final int Y = - 72;
+    private static final int Y = - 48;
 
     private static final String NAME = "title";
 
