@@ -53,19 +53,19 @@ public class Walking implements EntityState
             directionComponent.setWest( );
             Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
         }
-        if ( keyComponent.isDown( KeyComponent.RIGHT ) )
+        else if ( keyComponent.isDown( KeyComponent.RIGHT ) )
         {
             translationComponent.moveRight( );
             directionComponent.setEast( );
             Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
         }
-        if ( keyComponent.isDown( KeyComponent.UP ) )
+        else if ( keyComponent.isDown( KeyComponent.UP ) )
         {
             translationComponent.moveUp( );
             directionComponent.setNorth( );
             Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
         }
-        if ( keyComponent.isDown( KeyComponent.DOWN ) )
+        else if ( keyComponent.isDown( KeyComponent.DOWN ) )
         {
             translationComponent.moveDown( );
             directionComponent.setSouth( );
