@@ -7,7 +7,6 @@ import game.gameplay.entitystate.EntityState;
 import game.gameplay.entitystate.StateComponent;
 import game.gameplay.input.KeyComponent;
 import utility_library.gameplay.animation.AnimationComponent;
-import utility_library.gameplay.kinetics.TranslationComponent;
 
 import java.util.Map;
 
@@ -49,17 +48,17 @@ public class Standing implements EntityState
             directionComponent.setWest( );
             stateComponent.setCurrentState( OldHunterEntity.WALKING );
         }
-        if ( keyComponent.isDown( KeyComponent.RIGHT ) )
+        else if ( keyComponent.isDown( KeyComponent.RIGHT ) )
         {
             directionComponent.setEast( );
             stateComponent.setCurrentState( OldHunterEntity.WALKING );
         }
-        if ( keyComponent.isDown( KeyComponent.UP ) )
+        else if ( keyComponent.isDown( KeyComponent.UP ) )
         {
             directionComponent.setNorth( );
             stateComponent.setCurrentState( OldHunterEntity.WALKING );
         }
-        if ( keyComponent.isDown( KeyComponent.DOWN ) )
+        else if ( keyComponent.isDown( KeyComponent.DOWN ) )
         {
             directionComponent.setSouth( );
             stateComponent.setCurrentState( OldHunterEntity.WALKING );
