@@ -1,3 +1,5 @@
 /.idea/
 /target/
 /ceragine.log
+/src/main/ceragine.log
+/src/main/ceragine-data-bundle-creator.jar
