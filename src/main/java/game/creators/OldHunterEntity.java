@@ -2,7 +2,9 @@ package game.creators;
 
 import ecs_architecture.standard.GameComponent;
 import game.components.DirectionComponent;
+import game.components.DynamicComponent;
 import game.components.PlayerComponent;
+import game.gameplay.collision.CollisionComponent;
 import game.gameplay.entitystate.EntityState;
 import game.gameplay.entitystate.StateComponent;
 import game.oldhunterstates.Standing;
@@ -206,6 +208,7 @@ public class OldHunterEntity extends ComponentGroup
         components.add( getStateComponent( ) );
         components.add( getCharacterSpriteComponent( ) );
         components.add( getAnimationComponent( ) );
+        components.add( new DynamicComponent( ) );
         return components.toArray( new GameComponent[ 0 ] );
     }
 
