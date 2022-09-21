@@ -78,6 +78,11 @@ public class OldHunterEntity extends ComponentGroup
         return TranslationComponent.from( x , y , 1.0D , - 1.0D );
     }
 
+    private CollisionComponent getCollisionComponent( )
+    {
+        return CollisionComponent.from( 16 , 16 );
+    }
+
     private DirectionComponent getDirectionComponent( )
     {
         return new DirectionComponent( DirectionComponent.Direction.SOUTH );
@@ -208,6 +213,7 @@ public class OldHunterEntity extends ComponentGroup
         components.add( getStateComponent( ) );
         components.add( getCharacterSpriteComponent( ) );
         components.add( getAnimationComponent( ) );
+        components.add( getCollisionComponent( ) );
         components.add( new DynamicComponent( ) );
         return components.toArray( new GameComponent[ 0 ] );
     }
