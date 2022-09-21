@@ -30,7 +30,7 @@ public class CerastesForest extends ComponentGroup
 
     private final TileType type;
 
-    public final static Map< Integer, TileType > tileTypeMap;
+    public static final Map< Integer, TileType > tileTypeMap;
 
     public enum TileType
     {
@@ -137,7 +137,7 @@ public class CerastesForest extends ComponentGroup
 
     private void getRockComponentList( List< GameComponent > components )
     {
-        CollisionComponent collisionComponent = CollisionComponent.from( 8 , 8 );
+        CollisionComponent collisionComponent = CollisionComponent.from( 16 , 16 );
         components.add( new StaticComponent( ) );
         components.add( collisionComponent );
         components.add( getRock( ) );
