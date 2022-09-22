@@ -169,7 +169,6 @@ public class CerastesForest extends ComponentGroup
     @Override
     public GameComponent[] computeAndGet( )
     {
-
         List< GameComponent > components = new ArrayList<>( );
         components.add( getTranslationComponent( ) );
         if ( type != null )
@@ -213,7 +212,7 @@ public class CerastesForest extends ComponentGroup
                     break;
             }
         }
-        return components.toArray( new GameComponent[ y ] );
+        return components.toArray( new GameComponent[ 0 ] );
     }
 
 }
