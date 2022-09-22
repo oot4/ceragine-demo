@@ -74,7 +74,7 @@ public class OldHunterEntity extends ComponentGroup
     private TranslationComponent getTranslationComponent( )
     {
         int x = 0;
-        int y = 0;
+        int y = -8;
         return TranslationComponent.from( x , y , 1.0D , - 1.0D );
     }
 
