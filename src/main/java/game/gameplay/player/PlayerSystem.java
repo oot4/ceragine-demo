@@ -1,5 +1,6 @@
 package game.gameplay.player;
 
+import ceragine.Game;
 import ecs_architecture.standard.GameComponent;
 import ecs_architecture.standard.GameSystem;
 import game.components.PlayerComponent;
@@ -7,6 +8,7 @@ import game.creators.OldHunterEntity;
 import game.gameplay.entitystate.StateComponent;
 import game.gameplay.input.InputSystem;
 import game.gameplay.input.KeyComponent;
+import utility_library.gameplay.kinetics.TranslationComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,11 @@ public class PlayerSystem extends GameSystem
         GameComponent[] oldHunter = OldHunterEntity.build( );
         for ( GameComponent gameComponent : oldHunter )
         {
+            if ( gameComponent instanceof TranslationComponent )
+            {
+                TranslationComponent translationComponent = ( TranslationComponent ) gameComponent;
+                Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
+            }
             entityComponentMap.put( gameComponent.getClass( ) , gameComponent );
         }
         add( entityComponentMap.values( ).toArray( new GameComponent[ 0 ] ) );
