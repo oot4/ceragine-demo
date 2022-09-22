@@ -10,7 +10,7 @@ public class MapSystem extends GameSystem
 
     private static final int MAP_WIDTH = 40;
 
-    private static final int TILE_SIZE = 17;
+    private static final int TILE_SIZE = 16;
 
     private static final int ROCK_INDEX = 21;
 
