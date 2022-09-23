@@ -18,7 +18,6 @@ public class Walking implements EntityState
     @Override
     public void onEnter( Map< Class< ? extends GameComponent >, GameComponent > entityComponentMap )
     {
-
         DirectionComponent directionComponent = ( DirectionComponent ) entityComponentMap.get( DirectionComponent.class );
         AnimationComponent animationComponent = ( AnimationComponent ) entityComponentMap.get( AnimationComponent.class );
         if ( directionComponent != null )
