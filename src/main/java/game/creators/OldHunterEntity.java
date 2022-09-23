@@ -74,7 +74,7 @@ public class OldHunterEntity extends ComponentGroup
     private TranslationComponent getTranslationComponent( )
     {
         int x = 0;
-        int y = -8;
+        int y = 0;
         return TranslationComponent.from( x , y , 1.0D , - 1.0D );
     }
 
@@ -100,7 +100,9 @@ public class OldHunterEntity extends ComponentGroup
 
     private CharacterSpriteComponent getCharacterSpriteComponent( )
     {
-        return CharacterSpriteComponent.from( NAME , WIDTH , HEIGHT );
+        CharacterSpriteComponent characterSpriteComponent = CharacterSpriteComponent.from( NAME , WIDTH , HEIGHT );
+        characterSpriteComponent.sprite( ).offset( ).setLocation( 0 , - 8 );
+        return characterSpriteComponent;
     }
 
     private AnimationComponent getAnimationComponent( )
@@ -111,6 +113,7 @@ public class OldHunterEntity extends ComponentGroup
         {
             Sprite sprite = Sprite.from( NAME , WIDTH , HEIGHT );
             sprite.replaceTiles( tiles[ i ] );
+            sprite.offset( ).setLocation( 0 , - 8 );
             sprites[ i ] = sprite;
         }
 
@@ -134,6 +137,7 @@ public class OldHunterEntity extends ComponentGroup
                 1 , 1
         };
         mirroredSR.replaceMirrored( mirrors );
+        mirroredSR.offset( ).setLocation( 0 , - 8 );
         standingRight.add( mirroredSR , mirroredSR );
 
         //Motion
@@ -158,6 +162,8 @@ public class OldHunterEntity extends ComponentGroup
         } );
         mirrorWR5.replaceMirrored( mirrors );
         mirrorWR7.replaceMirrored( mirrors );
+        mirrorWR5.offset( ).setLocation( 0 , - 8 );
+        mirrorWR7.offset( ).setLocation( 0 , - 8 );
         walkingRight.add( mirroredSR , mirrorWR5 , mirroredSR , mirrorWR7 );
 
         //Standing Boat

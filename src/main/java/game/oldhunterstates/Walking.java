@@ -71,7 +71,7 @@ public class Walking implements EntityState
             directionComponent.setSouth( );
             Game.centerViewportAt( translationComponent.getX( ) , translationComponent.getY( ) );
         }
-        if ( ! keyComponent.isDown( KeyComponent.LEFT ) && ! keyComponent.isDown( KeyComponent.RIGHT ) && ! keyComponent.isDown( KeyComponent.UP ) && ! keyComponent.isDown( KeyComponent.DOWN ) )
+        else if ( ! keyComponent.isDown( KeyComponent.LEFT ) && ! keyComponent.isDown( KeyComponent.RIGHT ) && ! keyComponent.isDown( KeyComponent.UP ) && ! keyComponent.isDown( KeyComponent.DOWN ) )
         {
             stateComponent.setCurrentState( OldHunterEntity.STANDING );
         }
