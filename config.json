@@ -12,9 +12,9 @@
     "resolutionScaling": false,
     "antiAliasing": false,
     "colorInterpolation": false,
-    "width": 768,
-    "baseRenderScale": 4.0,
-    "height": 864
+    "width": 384,
+    "baseRenderScale": 2.0,
+    "height": 432
   },
   "game information": {
     "organization": "Viper Sourcing",
