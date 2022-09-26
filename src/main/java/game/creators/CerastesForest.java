@@ -2,7 +2,7 @@ package game.creators;
 
 import ecs_architecture.standard.GameComponent;
 import game.components.StaticComponent;
-import game.gameplay.collision.CollisionComponent;
+import game.gameplay.hitbox.HitBoxComponent;
 import game.utilities.TileArrangementLoader;
 import utility_library.gameplay.kinetics.TranslationComponent;
 import utility_library.gameplay.rendering.core.CharacterSpriteComponent;
@@ -137,7 +137,7 @@ public class CerastesForest extends ComponentGroup
 
     private void getRockComponentList( List< GameComponent > components )
     {
-        CollisionComponent collisionComponent = CollisionComponent.from( 16 , 16 );
+        HitBoxComponent collisionComponent = HitBoxComponent.from( 16 , 16 );
         components.add( new StaticComponent( ) );
         components.add( collisionComponent );
         components.add( getRock( ) );

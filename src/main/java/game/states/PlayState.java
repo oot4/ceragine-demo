@@ -1,6 +1,6 @@
 package game.states;
 
-import game.gameplay.collision.CollisionSystem;
+import game.gameplay.hitbox.HitBoxSystem;
 import game.gameplay.input.InputSystem;
 import game.gameplay.map.MapSystem;
 import game.gameplay.player.PlayerSystem;
@@ -19,7 +19,7 @@ public class PlayState extends GameState
     protected void internalInitialize( )
     {
         add( new MapSystem( ) );
-        add( new CollisionSystem( ) );
+        add( new HitBoxSystem( ) );
         add( new InputSystem( ) );
         add( new PlayerSystem( ) );
     }

@@ -5,16 +5,16 @@
   },
   "debug information": {
     "debugRate": 240,
-    "debugMode": false
+    "debugMode": true
   },
   "graphics information": {
     "fullscreen": false,
     "resolutionScaling": false,
     "antiAliasing": false,
     "colorInterpolation": false,
-    "width": 384,
-    "baseRenderScale": 3.0,
-    "height": 432
+    "width": 768,
+    "baseRenderScale": 4.0,
+    "height": 864
   },
   "game information": {
     "organization": "Viper Sourcing",

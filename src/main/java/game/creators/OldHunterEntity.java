@@ -4,7 +4,7 @@ import ecs_architecture.standard.GameComponent;
 import game.components.DirectionComponent;
 import game.components.DynamicComponent;
 import game.components.PlayerComponent;
-import game.gameplay.collision.CollisionComponent;
+import game.gameplay.hitbox.HitBoxComponent;
 import game.gameplay.entitystate.EntityState;
 import game.gameplay.entitystate.StateComponent;
 import game.oldhunterstates.Standing;
@@ -78,9 +78,9 @@ public class OldHunterEntity extends ComponentGroup
         return TranslationComponent.from( x , y , 1.0D , - 1.0D );
     }
 
-    private CollisionComponent getCollisionComponent( )
+    private HitBoxComponent getHitBoxComponent( )
     {
-        return CollisionComponent.from( 16 , 16 );
+        return HitBoxComponent.from( 12 , 12 );
     }
 
     private DirectionComponent getDirectionComponent( )
@@ -219,7 +219,7 @@ public class OldHunterEntity extends ComponentGroup
         components.add( getStateComponent( ) );
         components.add( getCharacterSpriteComponent( ) );
         components.add( getAnimationComponent( ) );
-        components.add( getCollisionComponent( ) );
+        components.add( getHitBoxComponent( ) );
         components.add( new DynamicComponent( ) );
         return components.toArray( new GameComponent[ 0 ] );
     }
