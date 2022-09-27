@@ -95,10 +95,11 @@ public class HitBoxSystem extends GameSystem
         //Expand source
         double expandedTargetX = target.getX( ) - source.getWidth( ) / 2.0;
         double expandedTargetY = target.getY( ) - source.getHeight( ) / 2.0;
-        double expandedTargetWidth = target.getWidth( ) + source.getWidth( ) / 2.0;
-        double expandedTargetHeight = target.getHeight( ) + source.getHeight( ) / 2.0;
+        double expandedTargetWidth = target.getWidth( ) + source.getWidth( );
+        double expandedTargetHeight = target.getHeight( ) + source.getHeight( );
         Rectangle2D expandedTarget = new Rectangle2D.Double( expandedTargetX , expandedTargetY , expandedTargetWidth , expandedTargetHeight );
 
+        Game.drawOutline( expandedTarget );
         //Get origin
         Point2D origin = new Point2D.Double( source.getCenterX( ) , source.getCenterY( ) );
 
