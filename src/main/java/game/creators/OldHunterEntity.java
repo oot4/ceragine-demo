@@ -80,7 +80,7 @@ public class OldHunterEntity extends ComponentGroup
 
     private HitBoxComponent getHitBoxComponent( )
     {
-        return HitBoxComponent.from( 12 , 12 );
+        return HitBoxComponent.from( 4 , 8 );
     }
 
     private DirectionComponent getDirectionComponent( )

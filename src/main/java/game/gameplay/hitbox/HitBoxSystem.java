@@ -1,5 +1,6 @@
 package game.gameplay.hitbox;
 
+import ceragine.Game;
 import ecs_architecture.standard.GameComponent;
 import ecs_architecture.standard.GameSystem;
 import game.components.DynamicComponent;
@@ -62,8 +63,8 @@ public class HitBoxSystem extends GameSystem
         int heightModifier = spriteContainer.sprite( ).height( ) % MODIFIER;
         int width = tileSize * widthModifier;
         int height = tileSize * heightModifier;
-        double x = translation.getX( ) + spriteContainer.sprite( ).offset( ).x;
-        double y = translation.getY( ) + spriteContainer.sprite( ).offset( ).y;
+        double x = translation.getX( ) + ( spriteContainer.sprite( ).offset( ).x / 2.0D );
+        double y = translation.getY( ) - tileSize + ( spriteContainer.sprite( ).offset( ).y / 2.0D );
         Rectangle2D initial = new Rectangle2D.Double( x , y , width , height );
         Rectangle2D hitBoxFrame = new Rectangle2D.Double( 0 , 0 , hitBox.getWidth( ) , hitBox.getHeight( ) );
         double expandedX = initial.getCenterX( ) - hitBoxFrame.getCenterX( );
@@ -161,12 +162,13 @@ public class HitBoxSystem extends GameSystem
     @Override
     protected void internalInitialize( )
     {
+        //Nothing to initialize
     }
 
     @Override
     protected void internalTerminate( )
     {
-
+        //Nothing to terminate
     }
 
     @Override
@@ -194,6 +196,8 @@ public class HitBoxSystem extends GameSystem
                     Rectangle2D dynamicHitBox = calculateHitBox( translation1 , hitBox1 , spriteContainer1 );
                     Rectangle2D staticHitBox = calculateHitBox( translation2 , hitBox2 , spriteContainer2 );
 
+                    Game.drawOutline( dynamicHitBox );
+                    Game.drawOutline( staticHitBox );
                     //Setup parameters
                     AtomicReference< Double > time = new AtomicReference<>( );
                     Point2D contact = new Point2D.Double( 0 , 0 );
@@ -202,32 +206,37 @@ public class HitBoxSystem extends GameSystem
 
                     //Calculate intersection
                     boolean intersects = intersects( dynamicHitBox , staticHitBox , velocity , contact , normal , time );
-                    if ( intersects )
-                    {
-                        double adjustX;
-                        double adjustY;
-                        if ( velocity.getX( ) > 0 )
-                        {
-                            adjustX = translation1.getX( ) + ( ( contact.getX( ) - dynamicHitBox.getCenterX( ) ) * normal.getX( ) );
-                        }
-                        else
-                        {
-                            adjustX = translation1.getX( ) - ( ( contact.getX( ) - dynamicHitBox.getCenterX( ) ) * normal.getX( ) );
-                        }
-                        if ( velocity.getY( ) > 0 )
-                        {
-                            adjustY = translation1.getY( ) + ( ( contact.getY( ) - dynamicHitBox.getCenterY( ) ) * normal.getY( ) );
-                        }
-                        else
-                        {
-                            adjustY = translation1.getY( ) - ( ( contact.getY( ) - dynamicHitBox.getCenterY( ) ) * normal.getY( ) );
-                        }
-                        translation1.setLocation( adjustX , adjustY );
-                        translation1.setLocation( adjustX , adjustY );
-                    }
+                    resolve( translation1 , dynamicHitBox , contact , normal , velocity , intersects );
                 }
             }
         } ) );
+    }
+
+    private void resolve( TranslationComponent translation , Rectangle2D dynamicHitBox , Point2D contact , Point2D normal , Point2D velocity , boolean intersects )
+    {
+        if ( intersects )
+        {
+            double adjustX;
+            double adjustY;
+            if ( velocity.getX( ) > 0 )
+            {
+                adjustX = translation.getX( ) + ( ( contact.getX( ) - dynamicHitBox.getCenterX( ) ) * normal.getX( ) );
+            }
+            else
+            {
+                adjustX = translation.getX( ) - ( ( contact.getX( ) - dynamicHitBox.getCenterX( ) ) * normal.getX( ) );
+            }
+            if ( velocity.getY( ) > 0 )
+            {
+                adjustY = translation.getY( ) + ( ( contact.getY( ) - dynamicHitBox.getCenterY( ) ) * normal.getY( ) );
+            }
+            else
+            {
+                adjustY = translation.getY( ) - ( ( contact.getY( ) - dynamicHitBox.getCenterY( ) ) * normal.getY( ) );
+            }
+            translation.setLocation( adjustX , adjustY );
+            translation.setLocation( adjustX , adjustY );
+        }
     }
 
 }
