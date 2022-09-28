@@ -220,7 +220,8 @@ public class HitBoxSystem extends GameSystem
 
                     //Calculate intersection
                     boolean intersects = intersects( dynamicHitBox , staticHitBox , velocity , contact , normal , time );
-                    resolve( translation1 , normal , intersects );
+                    hitBox1.setCollidedWithStatic( intersects );
+                    resolve( translation1 , normal , hitBox1.isCollidedWithStatic( ) );
                 }
             }
         } ) );
