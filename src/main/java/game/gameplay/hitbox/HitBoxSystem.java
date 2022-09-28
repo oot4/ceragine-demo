@@ -90,7 +90,10 @@ public class HitBoxSystem extends GameSystem
     private boolean intersects( Rectangle2D source , Rectangle2D target , Point2D velocity , Point2D contact , Point2D normal , AtomicReference< Double > time )
     {
         //Reject early if velocity is 0
-        if ( velocity.getX( ) == 0 && velocity.getY( ) == 0 ) { return false; }
+        if ( velocity.getX( ) == 0 && velocity.getY( ) == 0 )
+        {
+            return false;
+        }
 
         //Expand source
         double expandedTargetX = target.getX( ) - source.getWidth( ) / 2.0;
@@ -114,6 +117,10 @@ public class HitBoxSystem extends GameSystem
         double yNearDiff = target.getY( ) - origin.getY( );
         double xFarDiff = target.getMaxX( ) - origin.getX( );
         double yFarDiff = target.getMaxY( ) - origin.getY( );
+        if ( xNearDiff == 0 || yNearDiff == 0 || xFarDiff == 0 || yFarDiff == 0 )
+        {
+            return false;
+        }
         AtomicReference< Double > tNearX = new AtomicReference<>( quotient( xNearDiff , direction.getX( ) ) );
         AtomicReference< Double > tNearY = new AtomicReference<>( quotient( yNearDiff , direction.getY( ) ) );
         AtomicReference< Double > tFarX = new AtomicReference<>( quotient( xFarDiff , direction.getX( ) ) );
@@ -122,13 +129,19 @@ public class HitBoxSystem extends GameSystem
         swap( tNearY , tFarY );
 
         //Reject early if condition not met
-        if ( tNearX.get( ) > tFarY.get( ) || tNearY.get( ) > tFarX.get( ) ) { return false; }
+        if ( tNearX.get( ) > tFarY.get( ) || tNearY.get( ) > tFarX.get( ) )
+        {
+            return false;
+        }
 
         //Reject if time to far contact is negative
         double tNearContact = Math.max( tNearX.get( ) , tNearY.get( ) );
         double tFarContact = Math.min( tFarX.get( ) , tFarY.get( ) );
         time.set( tNearContact );
-        if ( tFarContact < 0 ) { return false; }
+        if ( tFarContact < 0 )
+        {
+            return false;
+        }
 
         //Get contact info
         double contactX = origin.getX( ) + tNearContact * direction.getX( );
@@ -207,35 +220,18 @@ public class HitBoxSystem extends GameSystem
 
                     //Calculate intersection
                     boolean intersects = intersects( dynamicHitBox , staticHitBox , velocity , contact , normal , time );
-                    resolve( translation1 , dynamicHitBox , contact , normal , velocity , intersects );
+                    resolve( translation1 , normal , intersects );
                 }
             }
         } ) );
     }
 
-    private void resolve( TranslationComponent translation , Rectangle2D dynamicHitBox , Point2D contact , Point2D normal , Point2D velocity , boolean intersects )
+    private void resolve( TranslationComponent translation , Point2D normal , boolean intersects )
     {
         if ( intersects )
         {
-            double adjustX;
-            double adjustY;
-            if ( velocity.getX( ) > 0 )
-            {
-                adjustX = translation.getX( ) + ( ( contact.getX( ) - dynamicHitBox.getCenterX( ) ) * normal.getX( ) );
-            }
-            else
-            {
-                adjustX = translation.getX( ) - ( ( contact.getX( ) - dynamicHitBox.getCenterX( ) ) * normal.getX( ) );
-            }
-            if ( velocity.getY( ) > 0 )
-            {
-                adjustY = translation.getY( ) + ( ( contact.getY( ) - dynamicHitBox.getCenterY( ) ) * normal.getY( ) );
-            }
-            else
-            {
-                adjustY = translation.getY( ) - ( ( contact.getY( ) - dynamicHitBox.getCenterY( ) ) * normal.getY( ) );
-            }
-            translation.setLocation( adjustX , adjustY );
+            double adjustX = translation.getX( ) + normal.getX( );
+            double adjustY = translation.getY( ) + normal.getY( );
             translation.setLocation( adjustX , adjustY );
         }
     }
