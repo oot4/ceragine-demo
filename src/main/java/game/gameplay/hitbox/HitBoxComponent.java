@@ -5,6 +5,8 @@ import ecs_architecture.standard.GameComponent;
 public class HitBoxComponent extends GameComponent
 {
 
+    private String triggerName = "";
+
     private final double width;
 
     private final double height;
@@ -41,9 +43,16 @@ public class HitBoxComponent extends GameComponent
         return collidedWithTrigger;
     }
 
-    void setCollidedWithTrigger( boolean collidedWithTrigger )
+    void setCollidedWithTrigger( String name )
     {
-        this.collidedWithTrigger = collidedWithTrigger;
+        triggerName = name;
+        this.collidedWithTrigger = true;
+    }
+
+    public void reset( )
+    {
+        triggerName = "";
+        collidedWithTrigger = false;
     }
 
     public boolean isCollidedWithStatic( )
@@ -54,6 +63,11 @@ public class HitBoxComponent extends GameComponent
     void setCollidedWithStatic( boolean collidedWithStatic )
     {
         this.collidedWithStatic = collidedWithStatic;
+    }
+
+    public String getTriggerName( )
+    {
+        return triggerName;
     }
 
 }

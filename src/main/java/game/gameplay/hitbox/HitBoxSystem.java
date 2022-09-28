@@ -5,6 +5,7 @@ import ecs_architecture.standard.GameComponent;
 import ecs_architecture.standard.GameSystem;
 import game.components.DynamicComponent;
 import game.components.StaticComponent;
+import game.components.TriggerComponent;
 import render_engine.core.RenderLayer;
 import utility_library.algorithms.core.Quotient;
 import utility_library.gameplay.kinetics.TranslationComponent;
@@ -173,6 +174,36 @@ public class HitBoxSystem extends GameSystem
         return true;
     }
 
+    private void resolve( TranslationComponent translation , Point2D normal , boolean intersects )
+    {
+        if ( intersects )
+        {
+            double adjustX = translation.getX( ) + normal.getX( );
+            double adjustY = translation.getY( ) + normal.getY( );
+            translation.setLocation( adjustX , adjustY );
+        }
+    }
+
+    private boolean detectCollision( TranslationComponent translation1 , TranslationComponent translation2 , HitBoxComponent hitBox1 , HitBoxComponent hitBox2 , SpriteContainer spriteContainer1 , SpriteContainer spriteContainer2 , Point2D normal )
+    {
+        //Calculate hit boxes
+        Rectangle2D lastDynamicHitBox = calculateLastHitBox( translation1 , hitBox1 , spriteContainer1 );
+        Rectangle2D dynamicHitBox = calculateHitBox( translation1 , hitBox1 , spriteContainer1 );
+        Rectangle2D staticHitBox = calculateHitBox( translation2 , hitBox2 , spriteContainer2 );
+
+        //Draw outline
+        Game.drawOutline( dynamicHitBox );
+        Game.drawOutline( staticHitBox );
+
+        //Setup parameters
+        AtomicReference< Double > time = new AtomicReference<>( );
+        Point2D contact = new Point2D.Double( 0 , 0 );
+        Point2D velocity = new Point2D.Double( dynamicHitBox.getCenterX( ) - lastDynamicHitBox.getCenterX( ) , dynamicHitBox.getCenterY( ) - lastDynamicHitBox.getCenterY( ) );
+
+        //Calculate intersection
+        return intersects( dynamicHitBox , staticHitBox , velocity , contact , normal , time );
+    }
+
     @Override
     protected void internalInitialize( )
     {
@@ -190,8 +221,34 @@ public class HitBoxSystem extends GameSystem
     {
         Map< String, GameComponent > staticEntities = get( StaticComponent.class );
         Map< String, GameComponent > dynamicEntities = get( DynamicComponent.class );
+        Map< String, GameComponent > triggerEntities = get( TriggerComponent.class );
         Map< String, GameComponent > hitBoxEntities = get( HitBoxComponent.class );
         Map< String, GameComponent > translationEntities = get( TranslationComponent.class );
+        dynamicEntities.forEach( ( entity1 , component1 ) -> triggerEntities.forEach( ( entity2 , component2 ) -> {
+            if ( hitBoxEntities.containsKey( entity1 ) && hitBoxEntities.containsKey( entity2 ) && translationEntities.containsKey( entity1 ) && translationEntities.containsKey( entity2 ) )
+            {
+                SpriteContainer spriteContainer1 = getSpriteContainer( entity1 );
+                SpriteContainer spriteContainer2 = getSpriteContainer( entity2 );
+                if ( spriteContainer1 != null && spriteContainer2 != null )
+                {
+                    //Get component data
+                    TranslationComponent translation1 = ( TranslationComponent ) translationEntities.get( entity1 );
+                    TranslationComponent translation2 = ( TranslationComponent ) translationEntities.get( entity2 );
+                    HitBoxComponent hitBox1 = ( HitBoxComponent ) hitBoxEntities.get( entity1 );
+                    HitBoxComponent hitBox2 = ( HitBoxComponent ) hitBoxEntities.get( entity2 );
+
+                    //Calculate intersection
+                    Point2D normal = new Point2D.Double( 0 , 0 );
+                    boolean intersects = detectCollision( translation1 , translation2 , hitBox1 , hitBox2 , spriteContainer1 , spriteContainer2 , normal );
+
+                    //Resolve
+                    if ( intersects )
+                    {
+                        hitBox1.setCollidedWithTrigger( component2.getName( ) );
+                    }
+                }
+            }
+        } ) );
         dynamicEntities.forEach( ( entity1 , component1 ) -> staticEntities.forEach( ( entity2 , component2 ) -> {
             if ( hitBoxEntities.containsKey( entity1 ) && hitBoxEntities.containsKey( entity2 ) && translationEntities.containsKey( entity1 ) && translationEntities.containsKey( entity2 ) )
             {
@@ -205,36 +262,17 @@ public class HitBoxSystem extends GameSystem
                     HitBoxComponent hitBox1 = ( HitBoxComponent ) hitBoxEntities.get( entity1 );
                     HitBoxComponent hitBox2 = ( HitBoxComponent ) hitBoxEntities.get( entity2 );
 
-                    //Calculate hit boxes
-                    Rectangle2D lastDynamicHitBox = calculateLastHitBox( translation1 , hitBox1 , spriteContainer1 );
-                    Rectangle2D dynamicHitBox = calculateHitBox( translation1 , hitBox1 , spriteContainer1 );
-                    Rectangle2D staticHitBox = calculateHitBox( translation2 , hitBox2 , spriteContainer2 );
-
-                    Game.drawOutline( dynamicHitBox );
-                    Game.drawOutline( staticHitBox );
-                    //Setup parameters
-                    AtomicReference< Double > time = new AtomicReference<>( );
-                    Point2D contact = new Point2D.Double( 0 , 0 );
-                    Point2D normal = new Point2D.Double( 0 , 0 );
-                    Point2D velocity = new Point2D.Double( dynamicHitBox.getCenterX( ) - lastDynamicHitBox.getCenterX( ) , dynamicHitBox.getCenterY( ) - lastDynamicHitBox.getCenterY( ) );
-
                     //Calculate intersection
-                    boolean intersects = intersects( dynamicHitBox , staticHitBox , velocity , contact , normal , time );
+                    Point2D normal = new Point2D.Double( 0 , 0 );
+                    boolean intersects = detectCollision( translation1 , translation2 , hitBox1 , hitBox2 , spriteContainer1 , spriteContainer2 , normal );
+
+                    //Resolve
                     hitBox1.setCollidedWithStatic( intersects );
                     resolve( translation1 , normal , hitBox1.isCollidedWithStatic( ) );
                 }
             }
         } ) );
-    }
 
-    private void resolve( TranslationComponent translation , Point2D normal , boolean intersects )
-    {
-        if ( intersects )
-        {
-            double adjustX = translation.getX( ) + normal.getX( );
-            double adjustY = translation.getY( ) + normal.getY( );
-            translation.setLocation( adjustX , adjustY );
-        }
     }
 
 }

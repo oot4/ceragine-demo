@@ -2,6 +2,7 @@ package game.creators;
 
 import ecs_architecture.standard.GameComponent;
 import game.components.StaticComponent;
+import game.components.TriggerComponent;
 import game.gameplay.hitbox.HitBoxComponent;
 import game.utilities.TileArrangementLoader;
 import utility_library.gameplay.kinetics.TranslationComponent;
@@ -32,6 +33,8 @@ public class CerastesForest extends ComponentGroup
 
     public static final Map< Integer, TileType > tileTypeMap;
 
+    private final boolean isTrigger;
+
     public enum TileType
     {
         TREE, TREE_LS, TREE_RS, ROCK, GRASS, WATER, WATER_BANK_TL, WATER_BANK_TR, WATER_BANK_BL, WATER_BANK_BR, WATER_BANK_L, WATER_BANK_R, WATER_BANK_T, WATER_BANK_B
@@ -52,16 +55,17 @@ public class CerastesForest extends ComponentGroup
         tileTypeMap.put( 9 , TileType.WATER_BANK_B );
     }
 
-    private CerastesForest( TileType type , int x , int y )
+    private CerastesForest( TileType type , int x , int y , boolean isTrigger )
     {
         this.type = type;
         this.x = x;
         this.y = y;
+        this.isTrigger = isTrigger;
     }
 
-    public static GameComponent[] build( TileType type , int x , int y )
+    public static GameComponent[] build( TileType type , int x , int y , boolean isTrigger )
     {
-        CerastesForest cerastesForest = new CerastesForest( type , x , y );
+        CerastesForest cerastesForest = new CerastesForest( type , x , y , isTrigger );
         return cerastesForest.computeAndGet( );
     }
 
@@ -137,9 +141,9 @@ public class CerastesForest extends ComponentGroup
 
     private void getRockComponentList( List< GameComponent > components )
     {
-        HitBoxComponent collisionComponent = HitBoxComponent.from( 16 , 16 );
+        HitBoxComponent hitBox = HitBoxComponent.from( 16 , 16 );
         components.add( new StaticComponent( ) );
-        components.add( collisionComponent );
+        components.add( hitBox );
         components.add( getRock( ) );
     }
 
@@ -171,6 +175,12 @@ public class CerastesForest extends ComponentGroup
     {
         List< GameComponent > components = new ArrayList<>( );
         components.add( getTranslationComponent( ) );
+        if ( isTrigger )
+        {
+            HitBoxComponent hitBox = HitBoxComponent.from( 16 , 16 );
+            components.add( new TriggerComponent( type.name( ) ) );
+            components.add( hitBox );
+        }
         if ( type != null )
         {
             switch ( type )

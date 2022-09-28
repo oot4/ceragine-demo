@@ -18,23 +18,20 @@ public class Standing implements EntityState
     {
         DirectionComponent directionComponent = ( DirectionComponent ) entityComponentMap.get( DirectionComponent.class );
         AnimationComponent animationComponent = ( AnimationComponent ) entityComponentMap.get( AnimationComponent.class );
-        if ( directionComponent != null )
+        switch ( directionComponent.getCurrent( ) )
         {
-            switch ( directionComponent.getCurrent( ) )
-            {
-                case SOUTH:
-                    animationComponent.setCurrentAnimation( OldHunterEntity.STANDING_FORWARD );
-                    break;
-                case NORTH:
-                    animationComponent.setCurrentAnimation( OldHunterEntity.STANDING_BACKWARD );
-                    break;
-                case EAST:
-                    animationComponent.setCurrentAnimation( OldHunterEntity.STANDING_RIGHT );
-                    break;
-                case WEST:
-                    animationComponent.setCurrentAnimation( OldHunterEntity.STANDING_LEFT );
-                    break;
-            }
+            case NORTH:
+                animationComponent.setCurrentAnimation( OldHunterEntity.STANDING_BACKWARD );
+                break;
+            case EAST:
+                animationComponent.setCurrentAnimation( OldHunterEntity.STANDING_RIGHT );
+                break;
+            case WEST:
+                animationComponent.setCurrentAnimation( OldHunterEntity.STANDING_LEFT );
+                break;
+            default:
+                animationComponent.setCurrentAnimation( OldHunterEntity.STANDING_FORWARD );
+                break;
         }
     }
 

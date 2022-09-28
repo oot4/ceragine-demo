@@ -7,6 +7,7 @@ import game.components.PlayerComponent;
 import game.gameplay.hitbox.HitBoxComponent;
 import game.gameplay.entitystate.EntityState;
 import game.gameplay.entitystate.StateComponent;
+import game.oldhunterstates.Rowing;
 import game.oldhunterstates.Standing;
 import game.oldhunterstates.Walking;
 import game.utilities.TileArrangementLoader;
@@ -50,17 +51,19 @@ public class OldHunterEntity extends ComponentGroup
 
     public static final String WALKING_RIGHT = "walking-right";
 
-    public static final String BOAT_FORWARD = "boat-forward";
+    public static final String ROWING_FORWARD = "boat-forward";
 
-    public static final String BOAT_BACKWARD = "boat-backward";
+    public static final String ROWING_BACKWARD = "boat-backward";
 
-    public static final String BOAT_LEFT = "boat-left";
+    public static final String ROWING_LEFT = "boat-left";
 
-    public static final String BOAT_RIGHT = "boat-right";
+    public static final String ROWING_RIGHT = "boat-right";
 
     public static final String STANDING = "standing";
 
     public static final String WALKING = "walking";
+
+    public static final String ROWING = "rowing";
 
     private OldHunterEntity( ) { }
 
@@ -93,6 +96,7 @@ public class OldHunterEntity extends ComponentGroup
         Map< String, EntityState > entityStateMap = new HashMap<>( );
         entityStateMap.put( STANDING , new Standing( ) );
         entityStateMap.put( WALKING , new Walking( ) );
+        entityStateMap.put( ROWING , new Rowing( ) );
         StateComponent stateComponent = StateComponent.from( entityStateMap );
         stateComponent.setCurrentState( STANDING );
         return stateComponent;
@@ -188,6 +192,8 @@ public class OldHunterEntity extends ComponentGroup
         } );
         mirrorBR13.replaceMirrored( mirrors );
         mirrorBR14.replaceMirrored( mirrors );
+        mirrorBR13.offset( ).setLocation( 0 , - 8 );
+        mirrorBR14.offset( ).setLocation( 0 , - 8 );
         boatRight.add( mirrorBR13 , mirrorBR14 );
 
         AnimationComponent animationComponent = AnimationComponent.newInstance( );
@@ -199,10 +205,10 @@ public class OldHunterEntity extends ComponentGroup
         animationComponent.addAnimation( WALKING_BACKWARD , walkingBackward );
         animationComponent.addAnimation( WALKING_LEFT , walkingLeft );
         animationComponent.addAnimation( WALKING_RIGHT , walkingRight );
-        animationComponent.addAnimation( BOAT_FORWARD , boatForward );
-        animationComponent.addAnimation( BOAT_BACKWARD , boatBackward );
-        animationComponent.addAnimation( BOAT_LEFT , boatLeft );
-        animationComponent.addAnimation( BOAT_RIGHT , boatRight );
+        animationComponent.addAnimation( ROWING_FORWARD , boatForward );
+        animationComponent.addAnimation( ROWING_BACKWARD , boatBackward );
+        animationComponent.addAnimation( ROWING_LEFT , boatLeft );
+        animationComponent.addAnimation( ROWING_RIGHT , boatRight );
         animationComponent.setCurrentAnimation( STANDING_FORWARD );
         animationComponent.setAsLoopedAnimation( true );
         animationComponent.setInterval( 9 );
